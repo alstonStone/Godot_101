@@ -1,32 +1,24 @@
 extends Node2D
 
-var max_health = 100
-var current_health = 100
-var potions_remainting = 3
-var potion_strength = 40
 
-func _ready():
-	take_damage(70)
-	print(get_status())
-	drink_potion()
-	print(get_status())
-	take_damage(200)
-	print(get_status())
-	print(is_alive())
-	pass
+var score = 0
+
+func increase_score():
+	score += 1
+	$ScoreLabel.text = "Score: "+str(score)
+	var new_x = randi_range(100,1000)
+	var new_y = randi_range(100,500)
+	$Button.position = Vector2(new_x,new_y)
 
 
-func get_status():
-	var hp_string = "HP: "+str(current_health)+"/"+str(max_health)
-	var potion_count_string = "Potions: "+str(potions_remainting)
-	return hp_string+" | "+potion_count_string
+func game_over():
+	$ScoreLabel.text = "Time's up! Final score: "+str(score)
+	$Button.visible = false
+	$TimeLabel.visible = false
 
-func take_damage(amount:int):
-	current_health = clamp(current_health-amount, 0, max_health)
+func _process(delta:float) -> void:
+	update_time_label()
 
-func drink_potion():
-	potions_remainting -= 1
-	current_health = clamp(current_health + potion_strength, 0, max_health)
-
-func is_alive():
-	return "Alive: "+str(current_health > 0)
+func update_time_label():
+	var time_left = int($Timer.get_time_left())
+	$TimeLabel.text = "Time: "+str(time_left)
