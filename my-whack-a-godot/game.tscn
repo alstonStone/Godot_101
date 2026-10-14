@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bvaqk1lcv723t" path="res://assets/target.png" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://df6oaw0haq2r5" path="res://game.gd" id="1_e2o6t"]
+[ext_resource type="AudioStream" uid="uid://c7db22itmyvs4" path="res://assets/ding.mp3" id="3_feb5d"]
 
 [node name="Game" type="Node2D" unique_id=2085483371]
 script = ExtResource("1_e2o6t")
@@ -35,5 +36,17 @@ wait_time = 10.0
 one_shot = true
 autostart = true
 
+[node name="RestartButton" type="Button" parent="." unique_id=632486926]
+offset_left = 486.0
+offset_top = 474.0
+offset_right = 652.0
+offset_bottom = 545.0
+theme_override_font_sizes/font_size = 45
+text = "Restart"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=474739591]
+stream = ExtResource("3_feb5d")
+
 [connection signal="pressed" from="Target" to="." method="taget_clicked"]
 [connection signal="timeout" from="Timer" to="." method="times_out"]
+[connection signal="pressed" from="RestartButton" to="." method="restart_game"]

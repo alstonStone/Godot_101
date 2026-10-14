@@ -2,6 +2,9 @@ extends Node2D
 
 var score = 0
 
+func _ready() -> void:
+	$RestartButton.visible = false
+
 func _process(delta: float) -> void:
 	update_time_label(int($Timer.get_time_left()))
 
@@ -11,6 +14,7 @@ func update_time_label(time:int):
 func taget_clicked():
 	increase_score()
 	move_target()
+	$AudioStreamPlayer.play()
 
 
 func increase_score():
@@ -19,7 +23,7 @@ func increase_score():
 
 
 func move_target():
-	var random_x = randi_range(100,1100)
+	var random_x = randi_range(200,1000)
 	var random_y = randi_range(100,500)
 	$Target.position = Vector2(random_x,random_y)
 
@@ -27,7 +31,7 @@ func move_target():
 func times_out():
 	hide_unneeded_nodes()
 	present_final_score()
-
+	$RestartButton.visible = true
 	
 func present_final_score():
 	$ScoreLabel.text = "Final score: "+str(score)
@@ -36,3 +40,7 @@ func present_final_score():
 func hide_unneeded_nodes():
 	$Target.visible = false
 	$TimeLabel.visible = false
+
+func restart_game():
+	get_tree().reload_current_scene()
+	
