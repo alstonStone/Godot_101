@@ -1,3 +1,39 @@
 [gd_scene format=3 uid="uid://b1f78e645ojxp"]
 
+[ext_resource type="Texture2D" uid="uid://bvaqk1lcv723t" path="res://assets/target.png" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://df6oaw0haq2r5" path="res://game.gd" id="1_e2o6t"]
+
 [node name="Game" type="Node2D" unique_id=2085483371]
+script = ExtResource("1_e2o6t")
+
+[node name="Target" type="Button" parent="." unique_id=756972389]
+offset_left = 533.0
+offset_top = 296.0
+offset_right = 605.0
+offset_bottom = 368.0
+icon = ExtResource("1_80nbo")
+flat = true
+
+[node name="ScoreLabel" type="Label" parent="." unique_id=875785603]
+offset_left = 20.0
+offset_top = 15.0
+offset_right = 189.0
+offset_bottom = 78.0
+theme_override_font_sizes/font_size = 45
+text = "Score: 0"
+
+[node name="TimeLabel" type="Label" parent="." unique_id=1707804796]
+offset_left = 20.0
+offset_top = 60.0
+offset_right = 298.0
+offset_bottom = 123.0
+theme_override_font_sizes/font_size = 45
+text = "Time: 10"
+
+[node name="Timer" type="Timer" parent="." unique_id=448916438]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="pressed" from="Target" to="." method="taget_clicked"]
+[connection signal="timeout" from="Timer" to="." method="times_out"]
